@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -30,8 +31,9 @@ class ProductsController extends Controller
     public function store(StoreProductRequest $request)
     {
         try {
-            $product = new Product;
-            $product->fill($request->validated())->save();
+            $product = new Product();
+            $product->fill($request->validated());
+            $product->save();
 
             return new ProductResource($product);
 
