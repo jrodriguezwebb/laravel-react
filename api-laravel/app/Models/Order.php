@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
@@ -15,6 +17,12 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'producto',
+        'order_number',
+        'total_amount',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
