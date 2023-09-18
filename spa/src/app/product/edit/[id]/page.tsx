@@ -96,7 +96,7 @@ export default function EditProductPage({
                 onChange={handleInputChange}
               />
             </div>
-            <button type="submit">Añadir Producto</button>
+            <button type="submit">Modificar Producto</button>
           </form>
           <Link href="/product">Ir atrás</Link>
         </div>
