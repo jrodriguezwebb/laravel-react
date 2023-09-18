@@ -16,24 +16,40 @@ export default function ProductPage() {
     router.push("/product/new");
   };
 
-  const deleteHandler = () => {
-    if (confirm("¿Realmente deseas borrar el registro?") == true) {
-      console.log("borrado");
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/products");
+      const result = await response.json();
+      setProducts(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
+  };
+
+  const deleteHandler = (id: number | undefined) => {
+    return async () => {
+      if (confirm("¿Realmente deseas borrar el registro?") == true && id) {
+        try {
+          const requestOptions = {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          await fetch(
+            `http://127.0.0.1:8000/api/products/${id}`,
+            requestOptions
+          );
+          fetchData();
+        } catch (error) {
+          console.error("Error sending data:", error);
+        }
+      }
+    };
   };
 
   useEffect(() => {
     setDomLoaded(true);
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/products");
-        const result = await response.json();
-        setProducts(result.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -61,7 +77,7 @@ export default function ProductPage() {
                     <td>{product.description}</td>
                     <td>
                       <Link href={`/product/edit/${product.id}`}>Editar</Link> |
-                      <span onClick={deleteHandler}>Borrar</span>
+                      <span onClick={deleteHandler(product.id)}>Borrar</span>
                     </td>
                   </tr>
                 );

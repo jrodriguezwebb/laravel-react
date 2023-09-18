@@ -6,7 +6,11 @@ import Link from "next/link";
 import { Product } from "@/models/product";
 import styles from "./page.module.scss";
 
-export default function NewProductPage() {
+export default function EditProductPage({
+  params,
+}: {
+  params: { id: number };
+}) {
   const [product, setProduct] = useState<Product>({
     name: "",
     description: "",
@@ -19,14 +23,14 @@ export default function NewProductPage() {
   const onAddProduct = async (product: Product): Promise<void> => {
     try {
       const requestOptions = {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(product),
       };
       const response = await fetch(
-        "http://127.0.0.1:8000/api/products",
+        `http://127.0.0.1:8000/api/products/${params.id}`,
         requestOptions
       );
       const result = await response.json();
@@ -53,7 +57,20 @@ export default function NewProductPage() {
 
   useEffect(() => {
     setDomLoaded(true);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/products/${params.id}`
+        );
+        const result = await response.json();
+        setProduct(result.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [params.id]);
 
   return (
     <>
