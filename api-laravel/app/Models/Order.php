@@ -17,8 +17,8 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id_user',
         'order_number',
-        'total_amount',
     ];
 
     public function user(): BelongsTo
