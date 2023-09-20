@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\OrderDetailSeeder;
 use Database\Seeders\OrderSeeder;
 use Database\Seeders\ProductSeeder;
+use Database\Seeders\SettingsSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             OrderSeeder::class,
             OrderDetailSeeder::class,
+            SettingsSeeder::class,
         ]);
     }
 }

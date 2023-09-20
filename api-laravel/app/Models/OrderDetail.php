@@ -16,6 +16,9 @@ class OrderDetail extends Model
      */
     protected $fillable = [
         'quantity',
+        'id_order',
+        'id_product',
+        'amount',
     ];
 
     public function order(): BelongsTo
