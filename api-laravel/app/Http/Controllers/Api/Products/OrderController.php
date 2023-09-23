@@ -73,7 +73,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return new OrderResource($order);
     }
 
     /**
@@ -85,7 +85,36 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        if (!$order->id) {
+            throw new HttpException(400, "Invalid id");
+        }
+
+        try {
+            $order = Order::find($order->id);
+            $order->fill($request->validated())->save();
+
+            // Obtén los detalles del request y calcula el amount
+            $detailsData = $request->input('details');
+            if ($detailsData) {
+                for ($i = 0; $i < count($detailsData); $i++) {
+                    $id = $detailsData[$i]["id"];
+                    $id_product = $detailsData[$i]["id_product"];
+                    $quantity = $detailsData[$i]["quantity"];
+                    $product = Product::find($id_product);
+                    $amount = $product->price * $quantity;
+                    $order->details()->updateOrInsert(['id' => $id], [
+                        'id_product' => $id_product,
+                        'quantity' => $quantity,
+                        'amount' => $amount,
+                    ]);
+                }
+            }
+
+            return new OrderResource($order);
+
+        } catch(\Exception $exception) {
+           throw new HttpException(400, "Invalid data - {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -96,6 +125,9 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->details()->delete();
+        $order->delete();
+
+        return response()->json(null, 204);
     }
 }

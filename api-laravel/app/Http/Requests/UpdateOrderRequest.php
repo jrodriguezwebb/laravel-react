@@ -13,7 +13,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_user' => 'required',
+            'order_date' => 'required',
         ];
     }
 }
