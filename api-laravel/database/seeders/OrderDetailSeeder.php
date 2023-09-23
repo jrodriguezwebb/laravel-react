@@ -16,13 +16,13 @@ class OrderDetailSeeder extends Seeder
     {
         OrderDetail::insert([
             [
-                'id_order' => 1,
+                'order_id' => 1,
                 'id_product' => 1,
                 'quantity' => 1,
                 'amount' => 1.20,
             ],
             [
-                'id_order' => 1,
+                'order_id' => 1,
                 'id_product' => 2,
                 'quantity' => 1,
                 'amount' => 1.40,
