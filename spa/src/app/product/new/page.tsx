@@ -10,6 +10,7 @@ export default function NewProductPage() {
   const [product, setProduct] = useState<Product>({
     name: "",
     description: "",
+    price: 0,
   });
 
   const [domLoaded, setDomLoaded] = useState(false);
@@ -50,7 +51,7 @@ export default function NewProductPage() {
     // Llamar a la función para añadir el producto
     onAddProduct(product);
     // Limpiar el formulario después de enviar
-    setProduct({ name: "", description: "" });
+    setProduct({ name: "", description: "", price: 0 });
   };
 
   useEffect(() => {
@@ -78,6 +79,16 @@ export default function NewProductPage() {
                 id="description"
                 name="description"
                 value={product.description}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="price">Precio:</label>
+              <input
+                type="text"
+                id="price"
+                name="price"
+                value={product.price}
                 onChange={handleInputChange}
               />
             </div>

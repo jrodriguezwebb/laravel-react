@@ -14,6 +14,7 @@ export default function EditProductPage({
   const [product, setProduct] = useState<Product>({
     name: "",
     description: "",
+    price: 0,
   });
 
   const [domLoaded, setDomLoaded] = useState(false);
@@ -54,7 +55,7 @@ export default function EditProductPage({
     // Llamar a la función para añadir el producto
     onAddProduct(product);
     // Limpiar el formulario después de enviar
-    setProduct({ name: "", description: "" });
+    setProduct({ name: "", description: "", price: 0 });
   };
 
   useEffect(() => {
