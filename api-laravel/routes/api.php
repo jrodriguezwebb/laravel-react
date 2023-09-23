@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Order\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Products\ProductsController;
-use App\Http\Controllers\Api\Products\OrderController;
 
 /*
 |--------------------------------------------------------------------------

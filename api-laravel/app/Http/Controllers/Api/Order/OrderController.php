@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Products;
+namespace App\Http\Controllers\Api\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
@@ -57,7 +57,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'message' => 'Producto y detalles creados con éxito',
-                'product' => $order,
+                'product' => new OrderResource($order),
             ], 201);
 
         } catch(\Exception $exception) {
