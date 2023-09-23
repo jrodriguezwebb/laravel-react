@@ -95,13 +95,15 @@ class OrderController extends Controller
 
             // Obtén los detalles del request y calcula el amount
             $detailsData = $request->input('details');
-            if ($detailsData) {
-                for ($i = 0; $i < count($detailsData); $i++) {
-                    $id = $detailsData[$i]["id"];
-                    $id_product = $detailsData[$i]["id_product"];
-                    $quantity = $detailsData[$i]["quantity"];
+            if (count($detailsData)) {
+                foreach ($detailsData as $detail) {
+                    $id = $detail["id"];
+                    $id_product = $detail["id_product"];
+                    $quantity = $detail["quantity"];
+
                     $product = Product::find($id_product);
                     $amount = $product->price * $quantity;
+
                     $order->details()->updateOrInsert(['id' => $id], [
                         'id_product' => $id_product,
                         'quantity' => $quantity,
